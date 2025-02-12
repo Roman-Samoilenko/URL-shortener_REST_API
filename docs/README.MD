@@ -15,5 +15,6 @@ A simple URL shortening service written in Go with PostgreSQL as the database. T
 - **Go** (Golang) - Backend language
 - **PostgreSQL** - Database for storing URLs
 - **HTML** - Frontend templates
+- **CSS** - Styles
 - **net/http** - HTTP server and routing (standard library)
 
