@@ -3,7 +3,9 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 	"unicode"
@@ -12,13 +14,12 @@ import (
 )
 
 const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "postgres"
-	dbname   = "shortener"
-	charset  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	keyLen   = 7
+	host    = "localhost"
+	port    = 5432
+	user    = "postgres"
+	dbname  = "shortener"
+	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	keyLen  = 7
 )
 
 var (
@@ -27,6 +28,11 @@ var (
 )
 
 func Init() error {
+	password, ok := os.LookupEnv("POSTGRES_PASSWORD")
+	if !ok {
+		log.Fatal("POSTGRES_PASSWORD is not set")
+	}
+
 	seededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	psqlInfo := fmt.Sprintf(

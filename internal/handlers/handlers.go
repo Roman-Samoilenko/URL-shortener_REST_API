@@ -33,8 +33,8 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var shortKey string
-	if chek, err := postgres.GetShortKey(originalURL); err == nil && chek != "" {
-		shortKey = chek
+	if check, err := postgres.GetShortKey(originalURL); err == nil && check != "" {
+		shortKey = check
 	} else {
 		shortKey, err = postgres.SaveURL(originalURL)
 
@@ -54,12 +54,12 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, "Template execution error", http.StatusInternalServerError)
 		log.Println("Template execute error:", err)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
 }
 
 func RedirectHandler(w http.ResponseWriter, r *http.Request) {
