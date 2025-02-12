@@ -17,6 +17,10 @@ func Run() {
 	http.HandleFunc("/", handlers.RedirectHandler)
 	http.HandleFunc("/create", handlers.CreateHandler)
 
+	http.Handle("/static/",
+		http.StripPrefix("/static/",
+			http.FileServer(http.Dir("static"))))
+
 	log.Println("Server starting on :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -47,7 +47,7 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 
 	shortURL := fmt.Sprintf("http://%s/%s", r.Host, shortKey)
 	data := URLData{ShortURL: shortURL}
-	tmpl, err := template.ParseFiles("ui/short.html")
+	tmpl, err := template.ParseFiles("templates/short.html")
 	if err != nil {
 		http.Error(w, "Template parsing error", http.StatusInternalServerError)
 		log.Println("Template parse error:", err)
@@ -64,7 +64,7 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 
 func RedirectHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
-		http.ServeFile(w, r, "ui/form.html")
+		http.ServeFile(w, r, "templates/form.html")
 		return
 	}
 
