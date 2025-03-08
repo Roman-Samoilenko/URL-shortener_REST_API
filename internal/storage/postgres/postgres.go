@@ -17,7 +17,7 @@ const (
 	host    = "localhost"
 	port    = 5432
 	user    = "postgres"
-	dbname  = "shortener"
+	dbname  = "postgres"
 	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	keyLen  = 7
 )
@@ -52,7 +52,7 @@ func Init() error {
 
 	createTableSQL := `
 	CREATE TABLE IF NOT EXISTS urls (
-		id SERIAL PRIMARY KEY,
+		id_urls SERIAL PRIMARY KEY,
 		original_url TEXT NOT NULL,
 		short_key TEXT NOT NULL UNIQUE,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
