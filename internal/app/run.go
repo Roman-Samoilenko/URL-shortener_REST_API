@@ -16,6 +16,11 @@ func Run() {
 
 	http.HandleFunc("/", handlers.RedirectHandler)
 	http.HandleFunc("/create", handlers.CreateHandler)
+	http.HandleFunc("/health",
+		func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("OK"))
+		})
 
 	http.Handle("/static/",
 		http.StripPrefix("/static/",
